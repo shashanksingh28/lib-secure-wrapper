@@ -5,15 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <dlfcn.h>
-
-// Doubly Linked List to store pointer - maxsize tuples
-typedef struct {
-	void * p;
-	size_t max_sz;
-	struct node *next;
-	struct node *prev;
-} node;
-
+#include "linkedlist.h"
 
 void * (*libc_malloc)(size_t);
 
