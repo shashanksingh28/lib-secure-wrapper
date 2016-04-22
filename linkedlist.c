@@ -20,6 +20,8 @@ void clearList(List *l){
 	if (libc_free == NULL){
 		libc_free = dlsym(RTLD_NEXT,"free");
 	}
+	if (l == NULL) return;
+	
 	Node* curr = l -> first;
 	while (curr != NULL){
 		libc_free(curr -> p);
@@ -32,6 +34,7 @@ void destroyList(List* l){
 	if (libc_free == NULL){
 		libc_free = dlsym(RTLD_NEXT,"free");
 	}
+	if (l == NULL) return;
 	clearList(l);
 	libc_free(l);
 }
@@ -48,6 +51,7 @@ Node* createNode(void* p, size_t sz){
 }
 
 Node* addToList(List* l, void* p, size_t sz){
+	if (l == NULL) return NULL;
 	if (l -> first == NULL){
 		l -> first = createNode(p,sz);
 		return l -> first;
@@ -70,7 +74,7 @@ Node* addToList(List* l, void* p, size_t sz){
 }
 
 Node* findInList(List* l, void* p){
-	if (l -> first == NULL) return NULL;
+	if (l == NULL || l -> first == NULL) return NULL;
 
 	Node *curr = l -> first;
 	while(curr != NULL){
@@ -86,7 +90,7 @@ Node* removeFromList(List* l, void* p){
 	if (libc_free == NULL){
 		libc_free = dlsym(RTLD_NEXT,"free");
 	}
-	if (l -> first == NULL) return NULL;
+	if (l == NULL || l -> first == NULL) return NULL;
 	
 	if (l -> first -> p == p){
 		Node* temp = l -> first;
@@ -113,4 +117,3 @@ Node* removeFromList(List* l, void* p){
 	}
 	return curr;
 }
-
