@@ -15,10 +15,8 @@ typedef struct {
 } List;
 
 List* createList();
-void destroyList(List* list);
-void clearList(List* list);
 Node* findInList(List* list, void* value);
 Node* addToList(List* list, void* p, size_t sz);
-Node* removeFromList(List* list, void* p);
+int removeFromList(List* list, void* p);
 
 #endif
