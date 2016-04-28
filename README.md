@@ -3,3 +3,5 @@ Small wrapper C library that remembers malloc's with their max-sizes and helps c
 
 `gcc -shared -fPIC wrapper.c linkedlist.c -o <libsafe.so>
 LD_PRELOAD=./<libsafe.so> <binary>`
+
+Further Improvements : Use hashmap instead of linear performance
