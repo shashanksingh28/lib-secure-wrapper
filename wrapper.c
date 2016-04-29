@@ -102,12 +102,13 @@ void * calloc(size_t num, size_t size) {
 	}
   if (list == NULL) list = createList();
   /* -- */
-
+  
   void * newp = libc_calloc(num, size);
   addToList(list, newp, (num * size));
   return newp;
 }
 
+// Returns safe, null terminated dest (might loose last byte for safety)
 char * strcpy(char * dest, const char * src){
   /* error checks and initializations */
   if (libc_strcpy == NULL){
@@ -123,7 +124,8 @@ char * strcpy(char * dest, const char * src){
   Node * node = findInList(list, dest);
   if (node != NULL){
     //printf("Using strncpy(%p,%p,%zd)\n", dest, src, node -> size);
-		dest = strncpy(dest, src, node -> size);
+		dest = strncpy(dest, src, node -> size - 1);
+    dest[node -> size - 1] = '\0';
   }
   else{
     // Not in heap. Future scope for something?
@@ -132,6 +134,7 @@ char * strcpy(char * dest, const char * src){
   return dest;
 }
 
+// Returns safe, null terminated dest (might loose last byte for safety)
 char * strcat(char * dest, const char * src) {
   /* error checks and initializations */
   if (libc_strcat == NULL){
@@ -150,7 +153,7 @@ char * strcat(char * dest, const char * src) {
     size_t left = node -> size - curr;
     if (left > 0) {
       //printf("Using strncat(%p,%p,%zd)\n", dest, src, left);
-      dest = strncat(dest, src, left);
+      dest = strncat(dest, src, left - 1);
     } else {
       //printf("Skipping strcat(%p,%p) as there is no room left in %p\n", dest, src, dest);
     }
