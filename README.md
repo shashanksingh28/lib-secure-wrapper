@@ -2,7 +2,7 @@
 Small wrapper C library that remembers malloc's with their max-sizes and helps convert vulnerable overflow calls to safer calls
 
 Compile:
-`gcc -shared -fPIC -o <libsafer.so> wrapper.c linkedlist.c -ldl`
+`gcc -shared -fPIC -fno-builtin -o <libsafer.so> wrapper.c linkedlist.c -ldl`
 
 Run:
 `LD_PRELOAD=./<libsafe.so> <path to binary>`
